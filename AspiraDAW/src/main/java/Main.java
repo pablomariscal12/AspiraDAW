@@ -29,9 +29,7 @@ public static Aspirador aspirador;
         switch (opcion) {
             case 1: configurarSistema();
                 break;
-            case 2:
-                
-                JOptionPane.showMessageDialog(null, "Carga");
+            case 2: carga();
                 break;
             case 3:
                 JOptionPane.showInputDialog(null, "Aspiración");
@@ -146,5 +144,27 @@ public static Aspirador aspirador;
      }
      return valorCorrecto;
              }
+    
+    public static void carga (){
+        boolean valorValido = false;
+        aspirador = new Aspirador();
+        while (!valorValido){
+            aspirador.bateria = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Cuanta batería tiene el aspirador?"));
+            if (comprobarBateria(aspirador.bateria)){
+                valorValido = true;
+            }else{
+                JOptionPane.showMessageDialog(null, "La batería debe estar entre 0 y 100");
+            }
+        }    
+    }
 
+    public static boolean comprobarBateria (int bateria){
+     boolean valorCorrecto;  
+     if (bateria<0 || bateria>100){
+       valorCorrecto = false;  
+     }else{
+         valorCorrecto = true;
+     }
+     return valorCorrecto;
+             }
 }
