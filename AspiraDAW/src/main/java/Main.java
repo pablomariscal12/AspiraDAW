@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author pablo
  */
 public class Main {
-
+public static Casa casa;
     /**
      * @param args the command line arguments
      */
@@ -26,8 +26,7 @@ public class Main {
                 + "2.Carga\n 3.Aspiración\n 4.Aspiración y fregado\n 5.Estado general\n 6.Base de carga\n 7.Salir"));
 
         switch (opcion) {
-            case 1:
-                JOptionPane.showInputDialog(null, "Cofigurar el sistema");
+            case 1: configurarSistema();
                 break;
             case 2:
                 
@@ -51,4 +50,50 @@ public class Main {
         }
     }
     
+    public static void configurarSistema(){
+        int opcion = Integer.parseInt (JOptionPane.showInputDialog(null, "¿Qué desea hacer?\n 1. Configurar casa por defecto \n 2.Crear casa personalizada"));
+        
+        switch (opcion){
+            case 1: casaPorDefecto ();
+                break;
+            case 2:
+                break;
+            default :
+                break;
+        }
+    }
+    
+    public static void casaPorDefecto (){
+       casa = new Casa();
+       Dependencia[] dependencias = new Dependencia [5];
+        
+       Dependencia cocina = new Dependencia ();
+       cocina.nombre = "cocina";
+       cocina.metros = Integer.parseInt (JOptionPane.showInputDialog(null, "¿Cuántos metros cuadrados tiene la cocina?"));
+       dependencias[0] = cocina;
+       
+       Dependencia salon = new Dependencia ();
+       salon.nombre = "salon";
+       salon.metros = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Cuántos metros cuadrados tiene el salón?"));
+       dependencias[1] = salon;
+       
+       Dependencia cuartoBaño = new Dependencia ();
+       cuartoBaño.nombre = "Cuarto de baño";
+       cuartoBaño.metros = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Cuántos metros cuadrados tiene el cuarto de baño"));
+       dependencias[2] = cuartoBaño;
+       
+       Dependencia dormitorio1 = new Dependencia ();
+       dormitorio1.nombre = "Dormitorio 1";
+       dormitorio1.metros = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Cuántos metros cuadrados tiene el dormitorio 1?"));
+       dependencias[3] = dormitorio1;
+       
+       Dependencia dormitorio2 = new Dependencia ();
+       dormitorio2.nombre = "Dormitorio 2";
+       dormitorio2.metros = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Cuántos metros cuadrados tiene el dormitorio 2?"));
+       dependencias[4] = dormitorio2;
+       
+       casa.dependencias = dependencias;
+       
+        
+    }
 }
