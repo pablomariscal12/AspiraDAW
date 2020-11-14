@@ -9,5 +9,10 @@
  * @author pablo
  */
 public class Casa {
+    public Dependencia [] dependencias;
+    public int metros;
     
+    public static void Casa () {
+    
+}
 }

@@ -9,5 +9,11 @@
  * @author pablo
  */
 public class Dependencia {
+    public String nombre;
+    public int metros;
+    public boolean limpia;
     
+        public static void Dependencia (){
+            
+        }
 }

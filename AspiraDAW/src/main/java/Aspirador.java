@@ -9,5 +9,10 @@
  * @author pablo
  */
 public class Aspirador {
+    public int bateria;
+    public Dependencia ubicacion;
     
+    public static void Aspirador (){
+        
+    }
 }
