@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class Main {
 public static Casa casa;
+public static Aspirador aspirador;
     /**
      * @param args the command line arguments
      */
@@ -64,36 +65,86 @@ public static Casa casa;
     }
     
     public static void casaPorDefecto (){
-       casa = new Casa();
-       Dependencia[] dependencias = new Dependencia [5];
+        boolean valorValido = false;
+        casa = new Casa();
+        Dependencia[] dependencias = new Dependencia [5];
         
-       Dependencia cocina = new Dependencia ();
-       cocina.nombre = "cocina";
-       cocina.metros = Integer.parseInt (JOptionPane.showInputDialog(null, "¿Cuántos metros cuadrados tiene la cocina?"));
-       dependencias[0] = cocina;
+        Dependencia cocina = new Dependencia ();
+        cocina.nombre = "cocina";
+        while (!valorValido){
+            cocina.metros = Integer.parseInt (JOptionPane.showInputDialog(null, "¿Cuántos metros cuadrados tiene la cocina?"));
+            if (comprobarMetros(cocina.metros)){
+                valorValido = true;
+                dependencias[0] = cocina;
+            }else{
+                JOptionPane.showMessageDialog(null, "Los metros deben ser entre 1 y 100.");
+            }
+        }
+        valorValido = false;
        
-       Dependencia salon = new Dependencia ();
-       salon.nombre = "salon";
-       salon.metros = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Cuántos metros cuadrados tiene el salón?"));
-       dependencias[1] = salon;
-       
-       Dependencia cuartoBaño = new Dependencia ();
-       cuartoBaño.nombre = "Cuarto de baño";
-       cuartoBaño.metros = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Cuántos metros cuadrados tiene el cuarto de baño"));
-       dependencias[2] = cuartoBaño;
-       
-       Dependencia dormitorio1 = new Dependencia ();
-       dormitorio1.nombre = "Dormitorio 1";
-       dormitorio1.metros = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Cuántos metros cuadrados tiene el dormitorio 1?"));
-       dependencias[3] = dormitorio1;
-       
-       Dependencia dormitorio2 = new Dependencia ();
-       dormitorio2.nombre = "Dormitorio 2";
-       dormitorio2.metros = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Cuántos metros cuadrados tiene el dormitorio 2?"));
-       dependencias[4] = dormitorio2;
-       
-       casa.dependencias = dependencias;
+        Dependencia salon = new Dependencia ();
+        salon.nombre = "salon";
+        while (!valorValido){
+            salon.metros = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Cuántos metros cuadrados tiene el salón?"));
+            if (comprobarMetros(salon.metros)){
+                valorValido = true;
+                dependencias[1] = salon;
+            }else{
+                JOptionPane.showMessageDialog(null, "Los metros deben ser entre 1 y 100.");
+            }
+        }
+        valorValido = false;
+        
+        Dependencia cuartoBaño = new Dependencia ();
+        cuartoBaño.nombre = "Cuarto de baño";
+        while (!valorValido){
+            cuartoBaño.metros = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Cuántos metros cuadrados tiene el cuarto de baño"));
+            if (comprobarMetros(cuartoBaño.metros)){
+                valorValido = true;
+                dependencias[2] = cuartoBaño;
+            }else{
+                JOptionPane.showMessageDialog(null, "Los metros deben ser entre 1 y 100.");
+            }
+        }
+        valorValido = false;
+        
+        Dependencia dormitorio1 = new Dependencia ();
+        dormitorio1.nombre = "Dormitorio 1";
+        while (!valorValido){
+            dormitorio1.metros = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Cuántos metros cuadrados tiene el dormitorio 1?"));
+            if (comprobarMetros(dormitorio1.metros)){
+                valorValido = true;
+                dependencias[3] = dormitorio1;
+            }else{
+                JOptionPane.showMessageDialog(null, "Los metros deben ser entre 1 y 100");
+            }
+        }
+        valorValido = false;
+        
+        Dependencia dormitorio2 = new Dependencia ();
+        dormitorio2.nombre = "Dormitorio 2";
+        while (!valorValido){
+            dormitorio2.metros = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Cuántos metros cuadrados tiene el dormitorio 2?"));
+            if (comprobarMetros(dormitorio2.metros)){
+                valorValido = true;
+                dependencias[4] = dormitorio2;
+            }else{
+                JOptionPane.showMessageDialog(null, "Los metros deben ser entre 1 y 100.");
+            }
+        }
+        casa.dependencias = dependencias;
        
         
     }
+   
+    public static boolean comprobarMetros (int metros){
+     boolean valorCorrecto;  
+     if (metros<1 || metros>100){
+       valorCorrecto = false;  
+     }else{
+         valorCorrecto = true;
+     }
+     return valorCorrecto;
+             }
+
 }
