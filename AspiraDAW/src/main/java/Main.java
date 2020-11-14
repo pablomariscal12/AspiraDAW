@@ -21,18 +21,19 @@ public static Aspirador aspirador;
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+        aspirador = new Aspirador();
+        int opcion = 0;
+        do{
         //Crear menú general de la aplicación
-        int opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "Menú principal\n\n 1.Configurar el sistema\n "
+        opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "Menú principal\n\n 1.Configurar el sistema\n "
                 + "2.Carga\n 3.Aspiración\n 4.Aspiración y fregado\n 5.Estado general\n 6.Base de carga\n 7.Salir"));
-
+        
         switch (opcion) {
             case 1: configurarSistema();
                 break;
             case 2: carga();
                 break;
-            case 3:
-                JOptionPane.showInputDialog(null, "Aspiración");
+            case 3: modo();
                 break;
             case 4:
                 JOptionPane.showInputDialog(null, "Aspiración y fregado");
@@ -47,6 +48,7 @@ public static Aspirador aspirador;
                 JOptionPane.showInputDialog(null, "Saliendo...");
                 break;
         }
+        }while(opcion!=7);
     }
     
     public static void configurarSistema(){
@@ -147,7 +149,7 @@ public static Aspirador aspirador;
     
     public static void carga (){
         boolean valorValido = false;
-        aspirador = new Aspirador();
+        
         while (!valorValido){
             aspirador.bateria = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Cuanta batería tiene el aspirador?"));
             if (comprobarBateria(aspirador.bateria)){
@@ -158,7 +160,7 @@ public static Aspirador aspirador;
         }    
     }
 
-    public static boolean comprobarBateria (int bateria){
+    public static boolean comprobarBateria (double bateria){
      boolean valorCorrecto;  
      if (bateria<0 || bateria>100){
        valorCorrecto = false;  
@@ -167,4 +169,47 @@ public static Aspirador aspirador;
      }
      return valorCorrecto;
              }
+    
+    public static void modo (){
+        int opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Qué tipo de aspiración desea?\n 1. Modo Completo \n 2.Modo dependencias"));
+        
+        switch (opcion){
+            case 1: modoCompleto ();
+                break;
+            case 2:
+                break;
+            default:
+                break;
+        }
+    }
+    
+    public static void modoCompleto (){
+        int numeroDependencias = casa.dependencias.length;
+        for (int i = 0; i<numeroDependencias; i++){
+            if (bateriaSuficiente ("aspirar", casa.dependencias[i])){
+                aspirar (casa.dependencias[i]);
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Aspiración finalizada");
+    }
+    
+    public static boolean bateriaSuficiente (String modo, Dependencia dependencia){
+        boolean suficiente = true;
+        if (modo == "aspirar"){
+            double bateriaNecesaria = dependencia.metros *1.5;
+            bateriaNecesaria = bateriaNecesaria +3;
+            if (aspirador.bateria >= bateriaNecesaria ){
+                suficiente = true;
+            }else{
+                suficiente = false;
+            }
+        }
+        return suficiente;
+    }
+    
+    public static void aspirar (Dependencia dependencia){
+        JOptionPane.showMessageDialog(null, "Iniciando aspiración de "+dependencia.nombre);
+        aspirador.bateria = aspirador.bateria - (dependencia.metros*1.5);
+        JOptionPane.showMessageDialog(null, "Finalizada aspiracion de "+dependencia.nombre);
+    }
 }

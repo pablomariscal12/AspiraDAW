@@ -9,7 +9,7 @@
  * @author pablo
  */
 public class Aspirador {
-    public int bateria;
+    public double bateria = 0.;
     public Dependencia ubicacion;
     
     public static void Aspirador (){
