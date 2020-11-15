@@ -1,7 +1,9 @@
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /*
@@ -36,8 +38,7 @@ public static final double consumoAspirar = 1.5;
                 break;
             case 4: modoAspirarFregar();
                 break;
-            case 5:
-                JOptionPane.showMessageDialog(null, "Estado general");
+            case 5: estadoGeneral ();
                 break;
             case 6:
                 JOptionPane.showInputDialog(null, "Base de carga");
@@ -253,16 +254,35 @@ public static final double consumoAspirar = 1.5;
     
     public static void aspirar (Dependencia dependencia){
         JOptionPane.showMessageDialog(null, "Iniciando aspiración de "+dependencia.nombre);
+        aspirador.ubicacion = dependencia;
         aspirador.bateria = aspirador.bateria - (dependencia.metros*consumoAspirar);
         JOptionPane.showMessageDialog(null, "Finalizada aspiracion de "+dependencia.nombre);
     }
     
     public static void fregar (Dependencia dependencia){
         JOptionPane.showMessageDialog(null, "Iniciando fregado de "+dependencia.nombre);
+        aspirador.ubicacion = dependencia;
         aspirador.bateria = aspirador.bateria - (dependencia.metros*consumoFregar);
         JOptionPane.showMessageDialog(null, "Finalizado el fregado de "+dependencia.nombre);
     }
     
+    public static void estadoGeneral (){
+        SimpleDateFormat formato = new SimpleDateFormat ("dd/MM/yyyy HH:mm:ss");
+        Date fecha = new Date ();
+        JOptionPane.showMessageDialog(null, formato.format(fecha));
+        JOptionPane.showMessageDialog(null, "Batería actual: "+aspirador.bateria+"%");
+        JOptionPane.showMessageDialog(null, "El aspirador se encuentra en "+aspirador.ubicacion.nombre);
+        String mensaje = "Casa: ";
+        int numeroDependencias = casa.dependencias.length;
+        int metros = 0;
+        for(int i = 0; i<numeroDependencias; i++){
+            mensaje = mensaje +"\n "+casa.dependencias[i].nombre+" "+casa.dependencias[i].metros+" metros cuadrados";
+            metros += casa.dependencias[i].metros;
+                    }
+        mensaje = mensaje + "\n Total: "+metros+" metros cuadrados.";
+        JOptionPane.showMessageDialog(null, mensaje);
+        
+    }
     
     
     }
