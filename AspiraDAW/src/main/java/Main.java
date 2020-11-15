@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 public class Main {
 public static Casa casa;
 public static Aspirador aspirador;
-
+public static final double consumoFregar = 0.75;
 public static final double consumoAspirar = 1.5;
     public static void main(String[] args) {
         aspirador = new Aspirador();
@@ -34,7 +34,7 @@ public static final double consumoAspirar = 1.5;
                 break;
             case 3: modoAspirar();
                 break;
-            case 4: 
+            case 4: modoAspirarFregar();
                 break;
             case 5:
                 JOptionPane.showMessageDialog(null, "Estado general");
@@ -181,15 +181,26 @@ public static final double consumoAspirar = 1.5;
         }
     }
     
-   
-    
+    public static void modoAspirarFregar (){
+        int opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Qué tipo de aspiración y fregado desea?\n 1. Modo completo\n 2. Modo dependencias"));
+        
+        switch (opcion){
+            case 1: modoCompleto ("AspirarFregar");
+                break;
+            case 2: modoDependencias ("AspirarFregar");
+                break;
+        }
+    }
     
     public static void modoCompleto (String modo){
         int numeroDependencias = casa.dependencias.length;
         int i = 0;
         while (i<numeroDependencias && bateriaSuficiente (modo, casa.dependencias[i])){
                 if (modo == "aspirar"){
-                    aspirar (casa.dependencias[i]);               
+                    aspirar (casa.dependencias[i]);
+                }else if (modo == "AspirarFregar"){
+                    aspirar (casa.dependencias[i]);
+                    fregar (casa.dependencias[i]);
                 }
                 i++;
         }
@@ -211,7 +222,10 @@ public static final double consumoAspirar = 1.5;
         dependencia --;
         if (bateriaSuficiente (modo, casa.dependencias[dependencia])){
               if (modo == "aspirar"){
-                    aspirar (casa.dependencias[dependencia]);                
+                    aspirar (casa.dependencias[dependencia]);
+                }else if (modo == "AspirarFregar"){
+                    aspirar (casa.dependencias[dependencia]);
+                    fregar (casa.dependencias[dependencia]);
                 }
         }
         }
@@ -223,12 +237,15 @@ public static final double consumoAspirar = 1.5;
         if (modo == "aspirar"){
             bateriaNecesaria = dependencia.metros *consumoAspirar;
             
+        }else if (modo == "AspirarFregar"){
+            bateriaNecesaria = dependencia.metros * (consumoAspirar + consumoFregar);
+            
         }
         bateriaNecesaria = bateriaNecesaria +3;
             if (aspirador.bateria >= bateriaNecesaria ){
                 suficiente = true;
             }else{
-                JOptionPane.showMessageDialog(null, "Batería agotada.");
+                JOptionPane.showMessageDialog(null, "Batería agotada. Volviendo a base de carga.");
                 suficiente = false;
             }
         return suficiente;
@@ -239,8 +256,15 @@ public static final double consumoAspirar = 1.5;
         aspirador.bateria = aspirador.bateria - (dependencia.metros*consumoAspirar);
         JOptionPane.showMessageDialog(null, "Finalizada aspiracion de "+dependencia.nombre);
     }
-          
+    
+    public static void fregar (Dependencia dependencia){
+        JOptionPane.showMessageDialog(null, "Iniciando fregado de "+dependencia.nombre);
+        aspirador.bateria = aspirador.bateria - (dependencia.metros*consumoFregar);
+        JOptionPane.showMessageDialog(null, "Finalizado el fregado de "+dependencia.nombre);
+    }
+    
     
     
     }
+
 
