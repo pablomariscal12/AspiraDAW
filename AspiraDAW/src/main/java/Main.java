@@ -21,32 +21,49 @@ public static Casa casa;
 public static Aspirador aspirador;
 public static final double consumoFregar = 0.75;
 public static final double consumoAspirar = 1.5;
+public static final String usuario = "admin";
+public static final String clave = "admin";
     public static void main(String[] args) {
         aspirador = new Aspirador();
-        int opcion = 0;
+
+        boolean accesoValido = true;
         do{
-        //Crear menú general de la aplicación
-        opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "Menú principal\n\n 1.Configurar el sistema\n "
-                + "2.Carga\n 3.Aspiración\n 4.Aspiración y fregado\n 5.Estado general\n 6.Base de carga\n 7.Salir"));
+            String u = JOptionPane.showInputDialog(null, "Introduce el usuario");
+            String c = JOptionPane.showInputDialog(null, "Introdzca contraseña");
+            if (u.equals (usuario) && c.equals(clave)){
+                accesoValido = true;
+                configurarSistema();
+
+                int opcion = 0;
+                do{
+                    //Crear menú general de la aplicación
+                    opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "Menú principal\n\n 1.Configurar el sistema\n "
+                    + "2.Carga\n 3.Aspiración\n 4.Aspiración y fregado\n 5.Estado general\n 6.Base de carga\n 7.Salir"));
+
+                    switch (opcion) {
+                        case 1: configurarSistema();
+                            break;
+                        case 2: carga();
+                            break;
+                        case 3: modoAspirar();
+                            break;
+                        case 4: modoAspirarFregar();
+                            break;
+                        case 5: estadoGeneral ();
+                            break;
+                        case 6: baseCarga ();
+                            break;
+                        default:
+                            JOptionPane.showInputDialog(null, "Saliendo...");
+                            break;
+                    }
+                }while(opcion!=7);
+            }else{
+                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecto");
+                accesoValido = false;
+            }
+        }while (!accesoValido);
         
-        switch (opcion) {
-            case 1: configurarSistema();
-                break;
-            case 2: carga();
-                break;
-            case 3: modoAspirar();
-                break;
-            case 4: modoAspirarFregar();
-                break;
-            case 5: estadoGeneral ();
-                break;
-            case 6: baseCarga ();
-                break;
-            default:
-                JOptionPane.showInputDialog(null, "Saliendo...");
-                break;
-        }
-        }while(opcion!=7);
     }
     
     public static void configurarSistema(){
