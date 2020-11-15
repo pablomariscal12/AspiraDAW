@@ -40,8 +40,7 @@ public static final double consumoAspirar = 1.5;
                 break;
             case 5: estadoGeneral ();
                 break;
-            case 6:
-                JOptionPane.showInputDialog(null, "Base de carga");
+            case 6: baseCarga ();
                 break;
             default:
                 JOptionPane.showInputDialog(null, "Saliendo...");
@@ -246,7 +245,7 @@ public static final double consumoAspirar = 1.5;
             if (aspirador.bateria >= bateriaNecesaria ){
                 suficiente = true;
             }else{
-                JOptionPane.showMessageDialog(null, "Batería agotada. Volviendo a base de carga.");
+                JOptionPane.showMessageDialog(null, "Batería agotada.");
                 suficiente = false;
             }
         return suficiente;
@@ -271,7 +270,9 @@ public static final double consumoAspirar = 1.5;
         Date fecha = new Date ();
         JOptionPane.showMessageDialog(null, formato.format(fecha));
         JOptionPane.showMessageDialog(null, "Batería actual: "+aspirador.bateria+"%");
+        if (aspirador.ubicacion != null){
         JOptionPane.showMessageDialog(null, "El aspirador se encuentra en "+aspirador.ubicacion.nombre);
+        }
         String mensaje = "Casa: ";
         int numeroDependencias = casa.dependencias.length;
         int metros = 0;
@@ -282,6 +283,13 @@ public static final double consumoAspirar = 1.5;
         mensaje = mensaje + "\n Total: "+metros+" metros cuadrados.";
         JOptionPane.showMessageDialog(null, mensaje);
         
+    }
+    
+    public static void baseCarga (){
+        JOptionPane.showMessageDialog(null, "Volviendo a base de carga");
+        JOptionPane.showMessageDialog(null, "Cargando batería");
+            aspirador.bateria = 100;
+        JOptionPane.showMessageDialog(null, "Batería cargada.");
     }
     
     
