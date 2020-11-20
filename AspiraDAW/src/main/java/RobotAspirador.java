@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
  *
  * @author pablo
  */
-public class Main {
+public class RobotAspirador {
 public static Casa casa;
 public static Aspirador aspirador;
 public static final double CONSUMOFREGAR = 0.75;
@@ -17,6 +17,8 @@ public static final String CLAVE = "admin";
     public static void main(String[] args) {
         aspirador = new Aspirador();
 
+        //Usando un Do while añado dos variables para el usuario y la contraseña 
+        //que se repitan cuando no se introduzca el valor adecuado
         boolean accesoValido;
         do{
             String u = JOptionPane.showInputDialog(null, "Introduce el usuario");
@@ -77,6 +79,7 @@ public static final String CLAVE = "admin";
         casa = new Casa();
         Dependencia[] dependencias = new Dependencia [5];
         
+        //Aqui creo la dependencia cocina y compruebo que los metros introducidos estan entre 1 y 100
         Dependencia cocina = new Dependencia ();
         cocina.nombre = "Cocina";
         while (!valorValido){
@@ -90,6 +93,7 @@ public static final String CLAVE = "admin";
         }
         valorValido = false;
        
+        //Aqui creo la dependencia salon y compruebo que los metros introducidos estan entre 1 y 100
         Dependencia salon = new Dependencia ();
         salon.nombre = "Salón";
         while (!valorValido){
@@ -103,6 +107,7 @@ public static final String CLAVE = "admin";
         }
         valorValido = false;
         
+        //Aqui creo la dependencia cuarto de baño y compruebo que los metros introducidos estan entre 1 y 100
         Dependencia cuartoBaño = new Dependencia ();
         cuartoBaño.nombre = "Cuarto de baño";
         while (!valorValido){
@@ -116,6 +121,7 @@ public static final String CLAVE = "admin";
         }
         valorValido = false;
         
+        //Aqui creo la dependencia dormitorio 1 y compruebo que los metros introducidos estan entre 1 y 100
         Dependencia dormitorio1 = new Dependencia ();
         dormitorio1.nombre = "Dormitorio 1";
         while (!valorValido){
@@ -129,6 +135,7 @@ public static final String CLAVE = "admin";
         }
         valorValido = false;
         
+        //Aqui creo la dependencia dormitorio 2 y compruebo que los metros introducidos estan entre 1 y 100
         Dependencia dormitorio2 = new Dependencia ();
         dormitorio2.nombre = "Dormitorio 2";
         while (!valorValido){
